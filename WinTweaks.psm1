@@ -67,15 +67,39 @@ function WinTweaks {
 
     switch ($command) {
         { 'Help', '--help', '/?' -contains $_ } {
-            Write-Host "Usage: wintweaks <command> [<options>]`n"
-            Write-Host "List of available commands`n"
-            Write-Host "apply       Apply one or more tweaks"
-            Write-Host "help        Show help for a command"
-            Write-Host "info        Display information about a tweak"
-            Write-Host "list        Print a list of all available tweaks with descriptions"
-            Write-Host "search      Search available tweaks with descriptions`n"
-            Write-Host "Type 'wintweaks help <commands>' to get help for a specific command."
-
+            switch ($options) {
+                { [string]::IsNullOrWhiteSpace($_) } {
+                    Write-Host "Usage: wintweaks <command> [<options>]`n"
+                    Write-Host "List of available commands`n"
+                    Write-Host "apply       Apply one or more tweaks"
+                    Write-Host "help        Show help for a command"
+                    Write-Host "info        Display information about a tweak"
+                    Write-Host "list        Print a list of all available tweaks with descriptions"
+                    Write-Host "search      Search available tweaks with descriptions`n"
+                    Write-Host "Type 'wintweaks help <commands>' to get help for a specific command."
+                }
+                { 'apply' -eq $_ } {
+                    Write-Host "Usage: wintweaks apply [<tweaks>]`n"
+                }
+                { 'info' -eq $_ } {
+                    Write-Host "Usage: wintweaks info <tweak>`n"
+                    Write-Host "Type 'wintweaks list' to get list of all available tweaks."
+                    Write-Host "Type 'wintweaks search <query>' to search for keywords."
+                }
+                { 'list' -eq $_ } {
+                    Write-Host "Usage: wintweaks list <module>`n"
+                    Write-Host "Type 'wintweaks list modules' to get list of all available modules."
+                }
+                { 'search' -eq $_ } {
+                    Write-Host "Usage: wintweaks search <query>`n"
+                    Write-Host "Searches for tweaks available to apply.`n"
+                    Write-Host "If used with <query>, shows tweak names that match the query."
+                    Write-Host "Without <query>, shows all the available tweaks."
+                }
+                default {
+                    Write-Host "WinTweaks: '$options' isn't a valid command. See 'wintweaks help' for valid entries."
+                }
+            }
         }
         Search {
             if ($results = SearchTweak $options) {
