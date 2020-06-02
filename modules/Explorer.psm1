@@ -446,6 +446,24 @@ Function HideNetworkFromDesktop {
 
 <#
     .DESCRIPTION
+        Hide all icons from desktop
+#>
+Function HideDesktopIcons {
+    Write-Output "Hiding all icons from desktop..."
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideIcons" -Value 1
+}
+
+<#
+    .DESCRIPTION
+        Show all icons on desktop
+#>
+Function ShowDesktopIcons {
+    Write-Output "Showing all icons on desktop..."
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideIcons" -Value 0
+}
+
+<#
+    .DESCRIPTION
         Show Windows build number and Windows edition (Home/Pro/Enterprise) from bottom right of desktop
 #>
 Function ShowBuildNumberOnDesktop {
