@@ -697,6 +697,25 @@ Function UninstallLinuxSubsystem {
 
 <#
     .DESCRIPTION
+        Install Windows Sandbox - Applicable since Win10 1903
+        Sandbox is a lightweight desktop environment tailored for safely running applications in isolation.
+#>
+Function InstallWindowsSandbox {
+    Write-Output "Installing Windows Sandbox..."
+    Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Containers-DisposableClientVM" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+}
+
+<#
+    .DESCRIPTION
+        Uninstall Windows Sandbox - Applicable since Win10 1903
+#>
+Function UninstallWindowsSandbox {
+    Write-Output "Uninstalling Windows Sandbox..."
+    Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Containers-DisposableClientVM" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+}
+
+<#
+    .DESCRIPTION
         Install Hyper-V - Not applicable to Home
 #>
 Function InstallHyperV {
