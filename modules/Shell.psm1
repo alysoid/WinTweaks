@@ -616,20 +616,38 @@ Function DisableTitleBarColor {
 
 <#
     .DESCRIPTION
-        Enable Dark Theme
+        Set Dark Mode for Applications
 #>
-Function EnableDarkTheme {
-    Write-Output "Enabling Dark Theme..."
+Function SetAppsDarkMode {
+    Write-Output "Setting Dark Mode for Applications..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
 }
 
 <#
     .DESCRIPTION
-        Disable Dark Theme
+        Set Light Mode for Applications
 #>
-Function DisableDarkTheme {
-    Write-Output "Disabling Dark Theme..."
-    Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -ErrorAction SilentlyContinue
+Function SetAppsLightMode {
+    Write-Output "Setting Light Mode for Applications..."
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 1
+}
+
+<#
+    .DESCRIPTION
+        Set Light Mode for System - Applicable since 1903
+#>
+Function SetSystemLightMode {
+    Write-Output "Setting Light Mode for System..."
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 1
+}
+
+<#
+    .DESCRIPTION
+        Set Dark Mode for System - Applicable since 1903
+#>
+Function SetSystemDarkMode {
+    Write-Output "Setting Dark Mode for System..."
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
 }
 
 <#
